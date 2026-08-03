@@ -3,6 +3,11 @@
 *.jpg
 *.jpeg
 
-# Local working files not part of the published page
-Email to John Ternus.html
-open-ipax-*.html
+# ...but publish this one supporting image intentionally
+!hero-uncropped-eye.png
+
+# Supporting mock-up files — not linked from index.html, but published
+# so they're available if needed:
+#   Email to John Ternus.html
+#   open-ipax-pitch-deck-thumbnails-mockup.html
+#   open-ipax-site-mockup.html

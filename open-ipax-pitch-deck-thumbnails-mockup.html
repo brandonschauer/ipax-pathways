@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open IPAX — Funder Pitch Deck (Thumbnails)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #17181A;
+    --ink-soft: #4A4D52;
+    --paper: #FBFAF7;
+    --paper-alt: #F1EFE9;
+    --accent: #1F6F63;
+    --accent-dark: #144E45;
+    --accent-light: #E4EFEC;
+    --mark: #FFA501;
+    --line: rgba(23,24,26,0.12);
+    --line-on-dark: rgba(255,255,255,0.22);
+    --sans: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    --slide-w: 300px;
+    --gap: calc(var(--slide-w) * 0.10); /* 10% of slide width, both axes */
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:#e7e1d0;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mockup-tag{
+    position:fixed; bottom:16px; right:16px; z-index:50;
+    background:var(--ink); color:var(--paper);
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+    padding:6px 10px; border-radius:20px; opacity:.85;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:56px 32px 96px;}
+
+  .page-head{max-width:640px; margin-bottom:44px;}
+  .eyebrow{
+    font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-dark); margin-bottom:12px; display:block;
+  }
+  h1{font-size:30px; font-weight:600; margin:0; letter-spacing:-0.01em;}
+  .page-head p{color:var(--ink-soft); font-size:15px; margin:14px 0 0;}
+  .page-head .meta{font-size:12.5px; color:var(--ink-soft); opacity:.75; margin-top:18px; padding-top:16px; border-top:1px solid var(--line);}
+
+  /* ---- Deck grid: 3 across, rows of 3/3/3/1, gap = 10% of slide width ---- */
+  .deck-grid{
+    display:grid;
+    grid-template-columns: repeat(3, var(--slide-w));
+    gap: var(--gap);
+  }
+
+  /* ---- Slide shell ---- */
+  .slide{
+    width:var(--slide-w);
+    aspect-ratio: 16 / 9;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px 16px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+  }
+  .slide--dark{
+    background:var(--accent-dark);
+    border-color:rgba(255,255,255,0.14);
+  }
+  .slide-no{
+    position:absolute; top:10px; right:12px;
+    font-size:9px; font-weight:600; letter-spacing:.04em;
+    color:var(--ink-soft); opacity:.45;
+  }
+  .slide--dark .slide-no{color:var(--paper); opacity:.5;}
+
+  .slide-title{
+    font-size:13px; font-weight:700; line-height:1.25; margin:2px 26px 4px 0;
+    color:var(--ink);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .slide--dark .slide-title{color:#fff;}
+
+  .slide-point{
+    font-size:9.5px; line-height:1.35; margin:0 0 10px; color:var(--ink-soft);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .slide--dark .slide-point{color:rgba(255,255,255,0.72);}
+
+  .sk-area{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:flex-end; gap:6px;}
+
+  /* ---- Skeleton primitives (light-colored placeholder shapes only) ---- */
+  .sk-block{background:var(--paper-alt); border:1px solid var(--line); border-radius:5px;}
+  .sk-block.tint{background:var(--accent-light); border-color:var(--accent-light);}
+  .sk-line{height:5px; border-radius:3px; background:rgba(23,24,26,0.09);}
+  .sk-line.tint{background:var(--accent-light);}
+  .sk-circle{border-radius:50%; background:var(--accent-light); border:1px solid var(--line);}
+  .sk-pill{border-radius:20px; background:var(--accent-dark); opacity:.85;}
+  .sk-row{display:flex; gap:6px; align-items:flex-end;}
+  .sk-col{display:flex; flex-direction:column; gap:5px;}
+
+  /* on-dark variants */
+  .slide--dark .sk-block{background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.16);}
+  .slide--dark .sk-block.tint{background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.16);}
+  .slide--dark .sk-line{background:rgba(255,255,255,0.22);}
+  .slide--dark .sk-circle{background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.2);}
+  .slide--dark .sk-dash{border:1.5px dashed rgba(255,255,255,0.3); background:transparent;}
+
+  .sk-dash{border:1.5px dashed var(--line); background:transparent; border-radius:5px;}
+
+  /* ---- Slide 1: Cover ---- */
+  .s1-mark{width:22px; height:auto; color:var(--mark); margin:0 auto 10px;}
+  .s1-center{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;}
+  .s1-center .sk-line{width:120px;}
+  .s1-center .sk-line:last-child{width:70px; opacity:.7;}
+
+  /* ---- Slide 2: Problem — 4 stat cards ---- */
+  .s2-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex:1; align-items:end;}
+  .s2-stat{display:flex; flex-direction:column; gap:4px; justify-content:flex-end; height:100%;}
+  .s2-stat .sk-block{height:14px;}
+  .s2-stat .sk-line{width:100%;}
+
+  /* ---- Slide 3: Why now — 2 cards ---- */
+  .s3-cards{display:grid; grid-template-columns:1fr 1fr; gap:8px; flex:1;}
+  .s3-card{border:1px solid var(--line); border-radius:5px; padding:6px; display:flex; flex-direction:column; gap:5px; justify-content:center;}
+  .s3-card .sk-block{width:14px; height:14px; border-radius:4px;}
+
+  /* ---- Slide 4: Solution — 4 chips ---- */
+  .s4-chips{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex:1; align-items:flex-end;}
+  .s4-chip{display:flex; flex-direction:column; gap:4px;}
+  .s4-chip .sk-block{height:12px;}
+
+  /* ---- Slide 5: Product — 3 tool rows ---- */
+  .s5-rows{display:flex; flex-direction:column; gap:5px; flex:1; justify-content:center;}
+  .s5-row{display:flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:5px; padding:4px 6px;}
+  .s5-row .sk-block{width:12px; height:12px; flex-shrink:0;}
+  .s5-row .sk-col{flex:1; gap:3px;}
+
+  /* ---- Slide 6: Theory of change — 3 steps ---- */
+  .s6-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; flex:1;}
+  .s6-step{border:1px solid var(--line); border-radius:5px; padding:6px; display:flex; flex-direction:column; gap:5px;}
+  .s6-step .sk-pill{width:16px; height:6px;}
+
+  /* ---- Slide 7: Traction — list + quote ---- */
+  .s7-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:7px; flex:1;}
+  .s7-list{display:flex; flex-direction:column; gap:4px; justify-content:center;}
+  .s7-list .sk-block{height:9px;}
+  .s7-quote{background:var(--ink); border-radius:5px; padding:7px; display:flex; flex-direction:column; justify-content:center; gap:4px;}
+  .s7-quote .sk-line{background:rgba(255,255,255,0.3);}
+
+  /* ---- Slide 8: Market — 3 personas ---- */
+  .s8-personas{display:grid; grid-template-columns:repeat(3,1fr); gap:7px; flex:1; align-items:center;}
+  .s8-persona{display:flex; flex-direction:column; align-items:center; gap:5px;}
+  .s8-persona .sk-circle{width:22px; height:22px;}
+  .s8-persona .sk-line{width:70%;}
+
+  /* ---- Slide 9: Team ---- */
+  .s9-row{display:flex; align-items:center; gap:8px; flex:1;}
+  .s9-row .sk-circle{width:34px; height:34px; flex-shrink:0;}
+  .s9-row .sk-col{flex:1; gap:5px;}
+  .s9-orgs{display:flex; gap:5px; margin-top:6px;}
+  .s9-orgs .sk-block{height:9px; flex:1;}
+
+  /* ---- Slide 10: The Ask — CTA + logo slots ---- */
+  .s10-center{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;}
+  .s10-cta{width:96px; height:18px; border-radius:20px; background:var(--mark); opacity:.9;}
+  .s10-slots{display:flex; gap:6px;}
+  .s10-slots .sk-dash{width:26px; height:16px;}
+
+  @media (max-width:760px){
+    :root{--slide-w: 42vw;}
+    .deck-grid{grid-template-columns: repeat(2, var(--slide-w));}
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-tag">Mockup — Pitch deck thumbnails v1</div>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="eyebrow">Mockup 3 of 3 — Funder materials</span>
+    <h1>Open IPAX — Funder Pitch Deck</h1>
+    <p>A 10-slide, start-up–style narrative arc for funder conversations: problem → solution → traction → ask. Shown here as thumbnails to review story order and pacing before any slide is fully designed.</p>
+    <p class="meta">Each thumbnail shows the slide title and one primary point only. All other elements are placeholder blocks (skeleton style) standing in for charts, images, and supporting detail.</p>
+  </div>
+
+  <div class="deck-grid">
+
+    <!-- 1: Cover -->
+    <article class="slide slide--dark">
+      <span class="slide-no">01</span>
+      <div class="s1-center">
+        <svg class="s1-mark" viewBox="0 0 1034 673" xmlns="http://www.w3.org/2000/svg"><path d="M1018.9 116.1c-10.3.9-59.1 22.2-51.9 65.7 15.1 90.7-81.6 326.5-463.3 381.6-244.7 35.3-241.7-183.6-151-220 33.4-13.4 32.6-3.2 36.3 19.9 0 .7.3 1.2.4 1.9 1.4 20.6 8.5 39.1 19.6 54.7 11 17 25 28.1 41 34.3 28.5 14.1 65 18.7 106.1 9.6 140.6-31.2 259.5-124.2 247.3-278.5C793.5 60 646.8-50.4 412.5 35.1 7.5 182.7-17.4 559 15.1 556c10.3-.9 59.1-22.2 51.9-65.7-15.1-90.7 81.7-326.5 463.2-381.6 244.7-35.3 241.8 183.5 151.1 220-33.3 13.4-32.6 3.2-36.3-19.9 0-.6-.2-1.2-.4-1.9-1.5-20.8-8.5-39.4-19.8-55C614 235 600 224.1 584.3 218c-28.5-14.2-65.1-18.9-106.3-9.8-140.7 31.2-259.5 124.2-247.4 278.5 10 125.2 156.7 235.7 390.9 150.2 404.9-147.7 429.8-523.9 397.3-521v.2Z" style="fill:currentColor;stroke-width:0"></path></svg>
+        <h3 class="slide-title" style="text-align:center; margin:0;">Open IPAX</h3>
+        <p class="slide-point" style="text-align:center; margin:0;">A digital world that's visually accessible by default.</p>
+        <div class="sk-line"></div>
+        <div class="sk-line"></div>
+      </div>
+    </article>
+
+    <!-- 2: Problem -->
+    <article class="slide">
+      <span class="slide-no">02</span>
+      <h3 class="slide-title">The world assumes everyone sees the same way.</h3>
+      <p class="slide-point">2.2 billion people live with a vision impairment most digital products aren't built for.</p>
+      <div class="sk-area">
+        <div class="s2-stats">
+          <div class="s2-stat"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:60%;"></div></div>
+          <div class="s2-stat"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:60%;"></div></div>
+          <div class="s2-stat"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:60%;"></div></div>
+          <div class="s2-stat"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:60%;"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3: Why now -->
+    <article class="slide">
+      <span class="slide-no">03</span>
+      <h3 class="slide-title">Two shifts are converging.</h3>
+      <p class="slide-point">New EU accessibility law and AI-driven design workflows open a narrow window.</p>
+      <div class="sk-area">
+        <div class="s3-cards">
+          <div class="s3-card"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:75%;"></div></div>
+          <div class="s3-card"><div class="sk-block tint"></div><div class="sk-line"></div><div class="sk-line" style="width:75%;"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4: Solution -->
+    <article class="slide">
+      <span class="slide-no">04</span>
+      <h3 class="slide-title">A color system, not just a palette.</h3>
+      <p class="slide-point">IPAX unifies WCAG, APCA, and ergonomic research into one designer-friendly score.</p>
+      <div class="sk-area">
+        <div class="s4-chips">
+          <div class="s4-chip"><div class="sk-block"></div><div class="sk-line"></div></div>
+          <div class="s4-chip"><div class="sk-block tint"></div><div class="sk-line"></div></div>
+          <div class="s4-chip"><div class="sk-block"></div><div class="sk-line"></div></div>
+          <div class="s4-chip"><div class="sk-block tint"></div><div class="sk-line"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5: Product -->
+    <article class="slide">
+      <span class="slide-no">05</span>
+      <h3 class="slide-title">Living tools, not a concept.</h3>
+      <p class="slide-point">The Sandbox, Font Sizer, and Design Lab are free and public today.</p>
+      <div class="sk-area">
+        <div class="s5-rows">
+          <div class="s5-row"><div class="sk-block tint"></div><div class="sk-col"><div class="sk-line" style="width:80%;"></div><div class="sk-line" style="width:50%;"></div></div></div>
+          <div class="s5-row"><div class="sk-block tint"></div><div class="sk-col"><div class="sk-line" style="width:80%;"></div><div class="sk-line" style="width:50%;"></div></div></div>
+          <div class="s5-row"><div class="sk-block tint"></div><div class="sk-col"><div class="sk-line" style="width:80%;"></div><div class="sk-line" style="width:50%;"></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6: Theory of change -->
+    <article class="slide">
+      <span class="slide-no">06</span>
+      <h3 class="slide-title">Accessibility that's native to the process.</h3>
+      <p class="slide-point">When the model fits how designers already think, accessibility stops being a compliance burden.</p>
+      <div class="sk-area">
+        <div class="s6-steps">
+          <div class="s6-step"><div class="sk-pill"></div><div class="sk-line"></div><div class="sk-line" style="width:70%;"></div></div>
+          <div class="s6-step"><div class="sk-pill"></div><div class="sk-line"></div><div class="sk-line" style="width:70%;"></div></div>
+          <div class="s6-step"><div class="sk-pill"></div><div class="sk-line"></div><div class="sk-line" style="width:70%;"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7: Traction -->
+    <article class="slide">
+      <span class="slide-no">07</span>
+      <h3 class="slide-title">Early, open, and already resonating.</h3>
+      <p class="slide-point">Designers and end users are finding IPAX on their own — and seeing themselves in it.</p>
+      <div class="sk-area">
+        <div class="s7-grid">
+          <div class="s7-list">
+            <div class="sk-block" style="width:100%;"></div>
+            <div class="sk-block" style="width:100%;"></div>
+            <div class="sk-block" style="width:100%;"></div>
+          </div>
+          <div class="s7-quote">
+            <div class="sk-line"></div>
+            <div class="sk-line" style="width:80%;"></div>
+            <div class="sk-line" style="width:45%; opacity:.6;"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8: Market / who it serves -->
+    <article class="slide">
+      <span class="slide-no">08</span>
+      <h3 class="slide-title">Three audiences, one structural gap.</h3>
+      <p class="slide-point">Designers, standards bodies, and the end users current standards still fail.</p>
+      <div class="sk-area">
+        <div class="s8-personas">
+          <div class="s8-persona"><div class="sk-circle"></div><div class="sk-line"></div></div>
+          <div class="s8-persona"><div class="sk-circle"></div><div class="sk-line"></div></div>
+          <div class="s8-persona"><div class="sk-circle"></div><div class="sk-line"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 9: Team -->
+    <article class="slide">
+      <span class="slide-no">09</span>
+      <h3 class="slide-title">Built on 30 years of practice.</h3>
+      <p class="slide-point">Led by Santiago Bustelo — founder, IxDA Buenos Aires; UX Director, Kambrica.</p>
+      <div class="sk-area">
+        <div class="s9-row">
+          <div class="sk-circle"></div>
+          <div class="sk-col">
+            <div class="sk-line" style="width:85%;"></div>
+            <div class="sk-line" style="width:60%;"></div>
+            <div class="sk-line" style="width:70%;"></div>
+          </div>
+        </div>
+        <div class="s9-orgs">
+          <div class="sk-block"></div>
+          <div class="sk-block"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10: The Ask -->
+    <article class="slide slide--dark">
+      <span class="slide-no">10</span>
+      <h3 class="slide-title" style="text-align:center;">Become a founding partner.</h3>
+      <p class="slide-point" style="text-align:center;">Seeking our first funders and institutions to help take IPAX from open research to lasting infrastructure.</p>
+      <div class="s10-center">
+        <div class="s10-cta"></div>
+        <div class="s10-slots">
+          <div class="sk-dash"></div>
+          <div class="sk-dash"></div>
+          <div class="sk-dash"></div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+</body>
+</html>

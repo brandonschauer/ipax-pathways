@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>An invitation for Apple to lead on visual accessibility</title>
+<style>
+  :root {
+    --paper: #FBFAF7;
+    --border: #E4E1D8;
+    --text-primary: #1C1B18;
+    --text-secondary: #5F5E5A;
+    --text-muted: #8B8A83;
+    --bg-accent: #E6F1FB;
+    --text-accent: #0C447C;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-voice: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2.5rem 1.5rem;
+    background: #e7e1d0;
+    font-family: var(--font-sans);
+  }
+  .email-card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--paper);
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+  .email-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .subject {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 12px;
+    color: var(--text-primary);
+  }
+  .from-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text-accent);
+    flex-shrink: 0;
+  }
+  .meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .sender-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .sender-email {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .timestamp {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .to-line {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .email-body {
+    padding: 1.5rem;
+    font-family: var(--font-voice);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+  .email-body p {
+    margin: 0 0 1em;
+  }
+  .email-body p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+</head>
+<body>
+<div class="email-card">
+  <div class="email-header">
+    <p class="subject">An invitation for Apple to lead on visual accessibility</p>
+    <div class="from-row">
+      <div class="avatar">S</div>
+      <div style="flex: 1; min-width: 0;">
+        <div class="meta-line">
+          <p class="sender-name">Santiago <span class="sender-email">&lt;santiago@icloud.com&gt;</span></p>
+          <p class="timestamp">Aug 2, 2026, 9:14 AM</p>
+        </div>
+        <p class="to-line">To: John Ternus</p>
+      </div>
+    </div>
+  </div>
+  <div class="email-body">
+    <p>Dear John,</p>
+    <p>Congratulations on stepping into this role. I know the first months bring no shortage of demands on your attention, so I'll be direct about why I'm writing.</p>
+    <p>I'm a designer, and for the past several years I've worked on a problem that sits squarely in Apple's path: designers make color and accessibility decisions without a model that actually fits how they think. Color theory is outdated. WCAG and APCA weren't built by designers, so most treat accessibility as a late, external compliance burden rather than a natural part of the work. The gap runs deeper than most people realize. No tool today lets a designer declare intent. White-on-black chosen deliberately for print becomes #FFFFFF on #000000 on screen through a purely colorimetric conversion, no one asked what the designer meant, and the result can actively harm the roughly 40% of adults with astigmatism.</p>
+    <p>The scope here is not small. At least 2.2 billion people worldwide live with a near or distance vision impairment, and over a billion of those cases could have been prevented or remain unaddressed. Roughly 300 million people have some form of color vision deficiency. The EU's Accessibility Act is now in force, adding a legal dimension to what was already a design one. And APCA, the contrast model built with designers rather than around them, is a leading candidate for WCAG 3.0, which tells me the standards world is heading toward exactly the kind of design-native thinking I've spent this time building.</p>
+    <p>Apple is the company best positioned to close this gap, not as a matter of charity, but because it already understands accessibility as a discipline rather than a checklist. You put a magnifying glass and a screen reader into a pocket-sized computer, standard, free, on every device. That instinct, to build accessibility into the tool rather than bolt it on afterward, is precisely what's missing from how color and contrast decisions get made across the industry, including within the app ecosystem Apple hosts. I'd like to see Apple extend that same instinct further: giving designers in Xcode and Swift UI a real way to express design intent alongside accessibility, not just a pass/fail contrast checker after the fact, and using Apple's platform weight to push the broader design tooling industry in the same direction.</p>
+    <p>I recognize the ask here is more foundational than a single feature request. But Apple has the talent, the reach, and the credibility to set a new standard for how designers and accessibility meet, rather than leaving that meeting point to compliance teams after the design is already done. I'd welcome the chance to share more about the work and where I think Apple's tools could lead.</p>
+    <p>Thank you for reading this. I'm rooting for you to lead Apple into a period where "designed for everyone" is not a slogan but a working method.</p>
+    <p>Warmly,<br>Santiago</p>
+  </div>
+</div>
+</body>
+</html>

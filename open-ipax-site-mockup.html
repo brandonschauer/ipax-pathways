@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open IPAX — A digital world that's visually accessible by default</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #17181A;
+    --ink-soft: #4A4D52;
+    --paper: #FBFAF7;
+    --paper-alt: #F1EFE9;
+    --accent: #1F6F63;
+    --accent-dark: #144E45;
+    --accent-light: #E4EFEC;
+    --line: rgba(23,24,26,0.12);
+    --serif: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --sans: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mockup-tag{
+    position:fixed; bottom:16px; right:16px; z-index:50;
+    background:var(--ink); color:var(--paper);
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+    padding:6px 10px; border-radius:20px; opacity:.85; font-family:var(--sans);
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+  a{color:inherit;}
+
+  /* Nav */
+  header.nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,247,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-weight:600; font-size:19px; text-decoration:none;}
+  .logo-mark{display:block; width:22px; height:auto; color:#FFA501; flex-shrink:0;}
+  nav.links{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  nav.links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  nav.links a:hover{color:var(--ink);}
+  .btn{
+    display:inline-block; text-decoration:none; font-weight:600; font-size:14px;
+    padding:10px 20px; border-radius:6px; transition:opacity .15s, transform .15s;
+  }
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-primary:hover{opacity:.9;}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* Sections generic */
+  section{padding:88px 0;}
+  .eyebrow{
+    font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-dark); margin-bottom:14px; display:block;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:600; line-height:1.15; margin:0;}
+  h2{font-size:34px; max-width:680px;}
+  p{color:var(--ink-soft); margin:16px 0 0;}
+  .lede{font-size:18px; max-width:640px;}
+
+  /* Hero */
+  .hero{padding-top:96px; padding-bottom:80px;}
+  /* Grid rows: 1 = eyebrow, 2 = h1/lede/ctas (col 1) matched against the media cell (col 2), 3 = footnote.
+     The media cell is an empty stretch target so the image never dictates row height. */
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; column-gap:56px; row-gap:0;}
+  .hero-grid > .eyebrow{grid-column:1; grid-row:1; color:var(--accent-dark);}
+  .hero-copy-core{grid-column:1; grid-row:2;}
+  .hero-grid > .hero-note{grid-column:1; grid-row:3;}
+  .hero h1{font-size:50px; max-width:620px; letter-spacing:-0.01em;}
+  .hero p.lede{font-size:19px; max-width:560px; margin-top:22px;}
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .hero-note{margin-top:40px; font-size:13px; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:16px; max-width:560px;}
+  .hero-media-cell{grid-column:2; grid-row:2; position:relative; align-self:stretch;}
+  .hero-media{position:absolute; inset:0; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:var(--paper-alt);}
+  .hero-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center; display:block;}
+
+  /* Problem stats */
+  .problem{background:var(--paper-alt);}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:44px;}
+  .stat-card{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:26px 20px;}
+  .stat-num{font-family:var(--serif); font-size:34px; font-weight:700; color:var(--accent-dark);}
+  .stat-label{font-size:13.5px; color:var(--ink-soft); margin-top:8px; line-height:1.5;}
+  .stat-source{font-size:11px; color:var(--ink-soft); opacity:.7; margin-top:10px; display:block;}
+
+  /* Approach / system chips */
+  .approach-grid{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .chip{
+    border:1px solid var(--line); border-radius:8px; padding:16px 18px; flex:1; min-width:150px;
+    background:var(--paper);
+  }
+  .chip-swatch{width:100%; height:34px; border-radius:5px; margin-bottom:12px;}
+  .chip h4{font-family:var(--sans); font-size:14px; font-weight:700; margin:0 0 4px;}
+  .chip p{font-size:12.5px; margin:0; color:var(--ink-soft);}
+
+  /* Theory of change */
+  .theory{background:var(--accent-dark); color:var(--paper);}
+  .theory .eyebrow{color:var(--accent-light);}
+  .theory h2{color:#fff; max-width:720px;}
+  .toc-row{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px;}
+  .toc-step{border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:22px 20px; background:rgba(255,255,255,0.04);}
+  .toc-step .tag{font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--accent-light);}
+  .toc-step p{color:rgba(251,250,247,0.86); font-size:15px; margin-top:10px;}
+
+  /* Why now */
+  .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:40px;}
+  .why-card h3{font-size:19px; font-weight:600;}
+  .why-card p{font-size:15px;}
+
+  /* Impact */
+  .impact{background:var(--paper-alt);}
+  .impact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; margin-top:44px; align-items:start;}
+  .impact-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px;}
+  .impact-list li{
+    background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:18px 20px; font-size:14.5px;
+  }
+  .impact-list strong{display:block; font-family:var(--serif); font-size:16px; margin-bottom:4px;}
+  .quote-card{
+    background:var(--ink); color:var(--paper); border-radius:12px; padding:32px 28px;
+  }
+  .quote-card q{font-family:var(--serif); font-size:20px; line-height:1.45; display:block; font-style:italic;}
+  .quote-card .attribution{margin-top:18px; font-size:13px; color:rgba(251,250,247,0.7); font-family:var(--sans);}
+
+  /* Funders */
+  .funders-lede{max-width:640px;}
+  .logo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:36px;}
+  .logo-slot{
+    border:1.5px dashed var(--line); border-radius:10px; height:88px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft); font-size:13px; font-weight:500;
+  }
+  .aligned-row{margin-top:36px; padding-top:28px; border-top:1px solid var(--line);}
+  .aligned-row .label{font-size:12px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--ink-soft);}
+  .aligned-names{display:flex; gap:24px; margin-top:14px; flex-wrap:wrap; font-family:var(--serif); font-size:16px; color:var(--ink-soft);}
+  .funders-cta{margin-top:34px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+
+  /* Get involved */
+  .involve-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px;}
+  .involve-card{border:1px solid var(--line); border-radius:10px; padding:24px 22px; background:var(--paper);}
+  .involve-card h3{font-size:17px; font-weight:600; font-family:var(--serif);}
+  .involve-card p{font-size:14px; margin:10px 0 18px;}
+  .involve-card a{font-size:13.5px; font-weight:700; color:var(--accent-dark); text-decoration:none;}
+  .involve-card a:hover{text-decoration:underline;}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line); padding:48px 0 60px;}
+  .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:28px;}
+  .footer-links{display:flex; gap:22px; font-size:13.5px; flex-wrap:wrap;}
+  .footer-links a{text-decoration:none; color:var(--ink-soft);}
+  .footer-links a:hover{color:var(--ink);}
+  .footer-fine{font-size:12.5px; color:var(--ink-soft); max-width:520px; margin-top:20px;}
+
+  @media (max-width: 860px){
+    nav.links{display:none;}
+    .hero-grid{grid-template-columns:1fr; row-gap:24px;}
+    .hero-grid > .eyebrow, .hero-copy-core, .hero-grid > .hero-note, .hero-media-cell{grid-column:1; grid-row:auto;}
+    .hero-media-cell{order:-1; position:static; height:auto;}
+    .hero-media{position:static; inset:auto;}
+    .hero-media img{position:static; width:100%; height:auto; object-fit:contain;}
+    .hero-grid h1, .hero-grid p.lede, .hero-grid .hero-note{max-width:none;}
+    .hero h1{font-size:38px;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .toc-row{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .impact-grid{grid-template-columns:1fr;}
+    .logo-grid{grid-template-columns:repeat(2,1fr);}
+    .involve-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-tag">Mockup — v1</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top">
+      <svg class="logo-mark" viewBox="0 0 1034 673" xmlns="http://www.w3.org/2000/svg"><path d="M1018.9 116.1c-10.3.9-59.1 22.2-51.9 65.7 15.1 90.7-81.6 326.5-463.3 381.6-244.7 35.3-241.7-183.6-151-220 33.4-13.4 32.6-3.2 36.3 19.9 0 .7.3 1.2.4 1.9 1.4 20.6 8.5 39.1 19.6 54.7 11 17 25 28.1 41 34.3 28.5 14.1 65 18.7 106.1 9.6 140.6-31.2 259.5-124.2 247.3-278.5C793.5 60 646.8-50.4 412.5 35.1 7.5 182.7-17.4 559 15.1 556c10.3-.9 59.1-22.2 51.9-65.7-15.1-90.7 81.7-326.5 463.2-381.6 244.7-35.3 241.8 183.5 151.1 220-33.3 13.4-32.6 3.2-36.3-19.9 0-.6-.2-1.2-.4-1.9-1.5-20.8-8.5-39.4-19.8-55C614 235 600 224.1 584.3 218c-28.5-14.2-65.1-18.9-106.3-9.8-140.7 31.2-259.5 124.2-247.4 278.5 10 125.2 156.7 235.7 390.9 150.2 404.9-147.7 429.8-523.9 397.3-521v.2Z" style="fill:currentColor;stroke-width:0"></path></svg>
+      Open IPAX
+    </a>
+    <nav class="links">
+      <a href="#problem">Mission</a>
+      <a href="#theory">Approach</a>
+      <a href="#impact">Impact</a>
+      <a href="#funders">Funders</a>
+      <a href="#get-involved">Get involved</a>
+    </nav>
+    <a class="btn btn-primary" href="#funders">Support the work</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <span class="eyebrow">An open, nonprofit research initiative</span>
+    <div class="hero-copy-core">
+      <h1>A digital world that's visually accessible by default.</h1>
+      <p class="lede">2.2 billion people live with a vision impairment. Open IPAX gives designers a color system that makes accessibility part of how they already work — not an audit they run after the fact.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#theory">Read our approach</a>
+        <a class="btn btn-ghost" href="#funders">Become a founding funder</a>
+      </div>
+    </div>
+    <p class="hero-note">Open IPAX is led by Santiago Bustelo, a UX director and accessibility advocate with 30+ years of practice, founder of IxDA Buenos Aires, and a contributor to accessibility legislation in Argentina.</p>
+    <div class="hero-media-cell">
+      <div class="hero-media">
+        <img src="hero-uncropped-eye.png" alt="Abstract illustration of an eye built from concentric Ink, Paper, and Accent arcs, with a faint interface grid bending gently around its curve.">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="wrap">
+    <span class="eyebrow">The problem</span>
+    <h2>Digital design still assumes everyone sees the same way.</h2>
+    <p class="lede">The interfaces our world runs on are built for uniform vision. For billions of people, that assumption gets in the way — not because designers don't care, but because the tools they've inherited treat accessibility as a compliance checklist, applied after the real design work is done.</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">2.2B</div>
+        <div class="stat-label">people worldwide have a near or distance vision impairment.</div>
+        <span class="stat-source">WHO / IAPB World Report on Vision, 2019</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">300M</div>
+        <div class="stat-label">people have a color vision deficiency, most of them red-green.</div>
+        <span class="stat-source">Colour Blind Awareness</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">101M</div>
+        <div class="stat-label">people with disabilities in the EU — about 1 in 4 adults over 16.</div>
+        <span class="stat-source">Eurostat / European Disability Forum</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2025</div>
+        <div class="stat-label">the year EU European Accessibility Act enforcement began.</div>
+        <span class="stat-source">European Commission</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="approach" id="approach">
+  <div class="wrap">
+    <span class="eyebrow">Our approach</span>
+    <h2>Give designers a model that speaks their language.</h2>
+    <p class="lede">WCAG and APCA weren't built by designers, and color-wheel theory hasn't caught up to how screens actually work. Open IPAX translates accessibility standards, ergonomic research — glare, halation, chromatic fatigue — and design principles into a single five-point score, so accessible choices are also the choices that make a design better.</p>
+    <div class="approach-grid">
+      <div class="chip">
+        <div class="chip-swatch" style="background:var(--ink);"></div>
+        <h4>Ink</h4>
+        <p>Defines the content boundary of a color system.</p>
+      </div>
+      <div class="chip">
+        <div class="chip-swatch" style="background:#fff; border:1px solid var(--line);"></div>
+        <h4>Paper</h4>
+        <p>Defines the surface boundary a system operates within.</p>
+      </div>
+      <div class="chip">
+        <div class="chip-swatch" style="background:var(--accent);"></div>
+        <h4>Accents</h4>
+        <p>Validated against Ink and Paper — not against each other.</p>
+      </div>
+      <div class="chip">
+        <div class="chip-swatch" style="background:var(--accent-light); border:1px solid var(--line);"></div>
+        <h4>Extended</h4>
+        <p>Controlled-use colors that sit outside the core range.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="theory" id="theory">
+  <div class="wrap">
+    <span class="eyebrow">Theory of change</span>
+    <h2>Accessibility works when it's native to the process, not bolted on at the end.</h2>
+    <div class="toc-row">
+      <div class="toc-step">
+        <span class="tag">If</span>
+        <p>Digital teams adopt quality and accessibility as natural parts of their work, rather than external compliance burdens —</p>
+      </div>
+      <div class="toc-step">
+        <span class="tag">Then</span>
+        <p>the products they build are inherently more accessible to a broader range of users —</p>
+      </div>
+      <div class="toc-step">
+        <span class="tag">So that</span>
+        <p>millions to billions of people are enabled, not thwarted, by the digital experiences core to our economy, society, and future.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-now" id="why-now">
+  <div class="wrap">
+    <span class="eyebrow">Why now</span>
+    <h2>Two shifts are converging.</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>Regulation has caught up.</h3>
+        <p>The EU's European Accessibility Act began enforcement in 2025 — the first time a broad, binding standard has created real rationale for addressing visual accessibility at scale.</p>
+      </div>
+      <div class="why-card">
+        <h3>AI is remaking how design gets built.</h3>
+        <p>As AI tools reshape design-and-build workflows, there's a rare window to make accessibility an intentional default from the start, instead of an expensive afterthought bolted on later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="impact">
+  <div class="wrap">
+    <span class="eyebrow">Where we are</span>
+    <h2>Early, open, and already resonating.</h2>
+    <div class="impact-grid">
+      <ul class="impact-list">
+        <li>
+          <strong>Living tools, public today</strong>
+          The IPAX Sandbox, Font Sizer, and Design Lab are free for any designer to test right now — not a concept, a working laboratory.
+        </li>
+        <li>
+          <strong>Built on where standards are heading</strong>
+          IPAX extends APCA, a candidate model for WCAG 3.0 — ahead of the standards world, not chasing it.
+        </li>
+        <li>
+          <strong>Found, not just marketed</strong>
+          Designers and end users are discovering IPAX on their own and recognizing themselves in it, unprompted.
+        </li>
+      </ul>
+      <div class="quote-card">
+        <q>"It's the first model with the vocabulary to describe us already built in."</q>
+        <div class="attribution">— Øyvind, developer living with Myalgic Encephalomyelitis (ME/CFS), Norway</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="funders" id="funders">
+  <div class="wrap">
+    <span class="eyebrow">Founding partners</span>
+    <h2 class="funders-lede">Open IPAX is looking for its first partners.</h2>
+    <p class="lede">We're a young, open nonprofit initiative seeking funders and institutions whose mission overlaps with ours — foundations, standards bodies, and universities working on accessibility, disability inclusion, and the future of design tools.</p>
+    <div class="logo-grid">
+      <div class="logo-slot">Your organization here</div>
+      <div class="logo-slot">Your organization here</div>
+      <div class="logo-slot">Your organization here</div>
+    </div>
+    <div class="aligned-row">
+      <span class="label">Standards we build on</span>
+      <div class="aligned-names">
+        <span>WCAG</span>
+        <span>APCA</span>
+        <span>IxDA</span>
+      </div>
+    </div>
+    <div class="funders-cta">
+      <a class="btn btn-primary" href="mailto:hello@openipax.org">Talk to us about founding support</a>
+      <span style="font-size:13px; color:var(--ink-soft);">No funders confirmed yet — this could be your logo.</span>
+    </div>
+  </div>
+</section>
+
+<section class="get-involved" id="get-involved">
+  <div class="wrap">
+    <span class="eyebrow">Get involved</span>
+    <h2>Three ways in.</h2>
+    <div class="involve-grid">
+      <div class="involve-card">
+        <h3>Funders &amp; foundations</h3>
+        <p>Back an open research initiative addressing a structural gap in digital accessibility for billions of people.</p>
+        <a href="mailto:hello@openipax.org">Start a conversation →</a>
+      </div>
+      <div class="involve-card">
+        <h3>Designers &amp; teams</h3>
+        <p>Test your own color systems in the Sandbox and Design Lab, and tell us where the model breaks.</p>
+        <a href="https://icograma.com/sandbox.php">Open the Sandbox →</a>
+      </div>
+      <div class="involve-card">
+        <h3>Researchers &amp; standards bodies</h3>
+        <p>Help fine-tune the ergonomic penalty models — chromatic fatigue, glare, halation — with real research.</p>
+        <a href="mailto:hello@openipax.org">Collaborate with us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <a class="logo" href="#top" style="margin-bottom:12px; display:flex;">
+        <svg class="logo-mark" viewBox="0 0 1034 673" xmlns="http://www.w3.org/2000/svg"><path d="M1018.9 116.1c-10.3.9-59.1 22.2-51.9 65.7 15.1 90.7-81.6 326.5-463.3 381.6-244.7 35.3-241.7-183.6-151-220 33.4-13.4 32.6-3.2 36.3 19.9 0 .7.3 1.2.4 1.9 1.4 20.6 8.5 39.1 19.6 54.7 11 17 25 28.1 41 34.3 28.5 14.1 65 18.7 106.1 9.6 140.6-31.2 259.5-124.2 247.3-278.5C793.5 60 646.8-50.4 412.5 35.1 7.5 182.7-17.4 559 15.1 556c10.3-.9 59.1-22.2 51.9-65.7-15.1-90.7 81.7-326.5 463.2-381.6 244.7-35.3 241.8 183.5 151.1 220-33.3 13.4-32.6 3.2-36.3-19.9 0-.6-.2-1.2-.4-1.9-1.5-20.8-8.5-39.4-19.8-55C614 235 600 224.1 584.3 218c-28.5-14.2-65.1-18.9-106.3-9.8-140.7 31.2-259.5 124.2-247.4 278.5 10 125.2 156.7 235.7 390.9 150.2 404.9-147.7 429.8-523.9 397.3-521v.2Z" style="fill:currentColor;stroke-width:0"></path></svg>
+        Open IPAX
+      </a>
+      <p class="footer-fine">Open IPAX is a nonprofit research initiative led by Santiago Bustelo, building in the open. IPAX remains open source: for this pathway, openness is how the work reaches more people, not a constraint on it.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#problem">Mission</a>
+      <a href="#theory">Approach</a>
+      <a href="#impact">Impact</a>
+      <a href="#funders">Funders</a>
+      <a href="mailto:hello@openipax.org">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
