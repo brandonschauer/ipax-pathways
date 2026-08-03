@@ -1,0 +1,8 @@
+# Source assets (large originals kept locally, not published)
+*.png
+*.jpg
+*.jpeg
+
+# Local working files not part of the published page
+Email to John Ternus.html
+open-ipax-*.html
