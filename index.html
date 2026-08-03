@@ -84,6 +84,16 @@
       margin: 3.2rem 0;
     }
 
+    /* footnotes */
+    sup a { font-size: .7em; font-weight: 600; text-decoration: none; margin-left: .1em; }
+    sup a:hover { text-decoration: underline; }
+    :target { scroll-margin-top: 1.5rem; }
+    .footnotes { color: var(--gray); }
+    .footnotes h2 { font-size: 1.1rem; margin: 0 0 .9rem; color: var(--ink); }
+    .footnotes ol { margin: 0; padding-left: 1.4rem; display: grid; gap: .7rem; }
+    .footnotes li { font-size: .92rem; line-height: 1.5; }
+    .footnotes .fnback { margin-left: .35rem; text-decoration: none; }
+
     /* mock-up figures — kept within the text column width */
     figure { margin: 2rem 0 2.4rem; }
     figure img {
@@ -151,7 +161,7 @@
     </figure>
 
     <h3>The problem</h3>
-    <p>The digital experiences our world runs on are built on visual perception, yet the digital environment excludes and disadvantages many: 2.2 billion people worldwide have a near or distance vision impairment, and 300 million people have some form of color vision deficiency.</p>
+    <p>The digital experiences our world runs on are built on visual perception, yet the digital environment excludes and disadvantages many: 2.2 billion people worldwide have a near or distance vision impairment,<sup id="fnref1"><a href="#fn1">1</a></sup> and 300 million people have some form of color vision deficiency.<sup id="fnref2"><a href="#fn2">2</a></sup></p>
 
     <h3>The solution</h3>
     <p>Integrate accessible practices into the natural work of designers and builders of digital experiences so inherently more accessible digital products and services are available to a broader range of users.</p>
@@ -241,6 +251,16 @@
       <li><strong>Which pathway is the most promising for your work?</strong> What feels the highest impact? Most viable?</li>
       <li><strong>What are you open to? What's off the table?</strong> New entities like a non-profit? Partnerships? Sharing equity? A transfer of ownership to see it succeed?</li>
     </ul>
+
+    <hr />
+
+    <section class="footnotes" aria-label="Notes">
+      <h2>Notes</h2>
+      <ol>
+        <li id="fn1">World Health Organization. (2026, February 10). <em>Blindness and vision impairment.</em> <a href="https://www.who.int/news-room/fact-sheets/detail/blindness-and-visual-impairment">who.int</a> <a class="fnback" href="#fnref1" aria-label="Back to text">&#8617;</a></li>
+        <li id="fn2">Colour Blind Awareness. (2022, April 27). <em>About colour blindness.</em> <a href="https://www.colourblindawareness.org/colour-blindness/">colourblindawareness.org</a> <a class="fnback" href="#fnref2" aria-label="Back to text">&#8617;</a></li>
+      </ol>
+    </section>
 
     <p class="end">&#10087;</p>
 
